@@ -1,23 +1,20 @@
--- Base layer: A "no-neck-pain"-like layout
-
 local core = require("groundskeeper.core")
 
-local function activate()
-    -- Set up the base layout
-    vim.cmd("only")   -- Close all other windows in the tab
+local M = {}
 
-    -- Add padding on either side
-    vim.cmd("vsplit")
-    vim.cmd("wincmd L")
-    vim.cmd("vsplit")
-    vim.cmd("wincmd H")
-
-    -- Resize padding windows
-    vim.cmd("vertical resize 30") -- Left padding
-    vim.cmd("wincmd l")
-    vim.cmd("vertical resize 30") -- Right padding
-    vim.cmd("wincmd h")
+function M.activate()
+	local padding_width = math.floor(vim.api.nvim_win_get_width(0) / 5)
+	local scratch_buf = vim.api.nvim_create_buf(true, true)
+	vim.cmd("vsplit")
+	vim.api.nvim_set_current_buf(scratch_buf)
+	vim.api.nvim_win_set_width(0, padding_width)
+	vim.cmd.wincmd("l")
 end
 
--- Register the base layer
-core.register_layer("base", activate)
+function M.deactivate()
+
+end
+
+core.register_layer("base", M)
+
+return M
