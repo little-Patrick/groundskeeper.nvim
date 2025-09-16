@@ -45,7 +45,7 @@ end
 
 function M.close()
 	if state.popup.win and vim.api.nvim_win_is_valid(state.popup.win) then
-		pcall(vim.api.nvim_win_close, state.popup.outer_win, true)
+		pcall(vim.api.nvim_win_close, state.popup.win, true)
 	end
 end
 
